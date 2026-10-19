@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoVault | Memories Together</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1020;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 8%;
+            border-bottom: 1px solid #27304a;
+            gap: 15px;
+        }
+
+        .logo {
+            color: #a78bfa;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        button {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        .login, .primary, .action-btn {
+            background: #8b5cf6;
+            color: white;
+            padding: 12px 22px;
+            border: 0;
+            border-radius: 9px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 55px;
+        }
+
+        .tag {
+            color: #c4b5fd;
+            background: #21183d;
+            display: inline-block;
+            padding: 9px 16px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 6vw, 64px);
+            line-height: 1.15;
+            margin-bottom: 22px;
+        }
+
+        h1 span {
+            color: #a78bfa;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #b8c0d4;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .features {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px 25px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: #151c30;
+            border: 1px solid #29334d;
+            padding: 28px;
+            border-radius: 16px;
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-4px);
+        }
+
+        .emoji {
+            font-size: 35px;
+            margin-bottom: 18px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #b8c0d4;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .card-status {
+            display: inline-block;
+            color: #c4b5fd;
+            background: #21183d;
+            padding: 7px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .section {
+            display: none;
+            max-width: 1000px;
+            margin: 15px auto 50px;
+            padding: 25px;
+        }
+
+        .panel {
+            background: #151c30;
+            border: 1px solid #29334d;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            margin-bottom: 18px;
+            color: #c4b5fd;
+        }
+
+        .field {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            margin: 12px 0;
+            border: 1px solid #37415d;
+            border-radius: 8px;
+            background: #0b1020;
+            color: white;
+        }
+
+        .field:focus {
+            outline: 1px solid #8b5cf6;
+        }
+
+        .message {
+            margin-top: 15px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .muted {
+            color: #b8c0d4;
+            line-height: 1.7;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .gallery-card {
+            background: #0b1020;
+            border: 1px solid #29334d;
+            padding: 12px;
+            border-radius: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .gallery-card img,
+        .gallery-card video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .download-link {
+            display: block;
+            margin-top: 12px;
+            padding: 10px;
+            text-align: center;
+            background: #8b5cf6;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid #8b5cf6;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #27304a;
+            color: #929bb0;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .hero {
+                padding-top: 55px;
+            }
+
+            .features {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+        }
+
+       
+/* Center Popup Form */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.popup-box {
+    background: #111827;
+    border: 1px solid #8b5cf6;
+    border-radius: 18px;
+    padding: 30px;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.25);
+    animation: popupAppear 0.25s ease;
+}
+
+.popup-box h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+        /* Login forms as centered popup overlays */
+        #loginSection,
+        #adminLoginSection {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            margin: 0;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(6px);
+            overflow-y: auto;
+        }
+
+        #loginSection .panel,
+        #adminLoginSection .panel {
+            width: 100%;
+            max-width: 420px;
+            margin: max(8vh, 30px) auto 30px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.22);
+            border-color: #8b5cf6;
+        }
+
+        #loginSection .back-btn,
+        #adminLoginSection .back-btn {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            margin: 0;
+            background: #151c30;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            #loginSection,
+            #adminLoginSection {
+                padding: 16px;
+            }
+
+            #loginSection .panel,
+            #adminLoginSection .panel {
+                margin-top: 65px;
+                padding: 24px 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🔐 PhotoVault</div>
+
+    <div>
+        <span id="welcomeText" class="muted hidden"></span>
+        <button class="login" id="headerLogin" onclick="showSection('loginSection')">
+            Login
+        </button>
+        <button class="login hidden" id="logoutButton" onclick="logoutStudent()">
+            Logout
+        </button>
+    </div>
+</header>
+
+<main>
+    <section class="hero" id="homeSection">
+        <div class="tag">✦ Your private space for memories</div>
+
+        <h1>Your Memories,<br><span>One Beautiful Place.</span></h1>
+
+        <p>
+            Keep your favourite photos and videos together.
+            Share special moments with your friends in one private gallery.
+        </p>
+
+        <button class="primary" onclick="handleExplore()">
+            Explore PhotoVault →
+        </button>
+    </section>
+
+    <section class="features" id="featuresSection">
+
+        <div class="card">
+            <div class="emoji">📸</div>
+            <h2>Photo Upload</h2>
+            <p>Upload your favourite pictures and save special moments.</p>
+            <span class="card-status" id="photoStatus">🔒 Login required</span>
+            <br><br>
+            <button class="action-btn" onclick="openStudentFeature('uploadSection')">
+                Open Photo Upload
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🎬</div>
+            <h2>Video Upload</h2>
+            <p>Keep your memorable videos together in one place.</p>
+            <span class="card-status" id="videoStatus">🔒 Login required</span>
+            <br><br>
+            <button class="action-btn" onclick="openStudentFeature('videoSection')">
+                Open Video Upload
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🖼️</div>
+            <h2>Photo & Video Gallery</h2>
+            <p>View your memories and download your uploaded files.</p>
+            <span class="card-status" id="galleryStatus">🔒 Login required</span>
+            <br><br>
+            <button class="action-btn" onclick="openStudentFeature('gallerySection')">
+                Open Gallery
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🔐</div>
+            <h2>Account Management</h2>
+            <p>Admin can manage student names, Gmail addresses and PINs.</p>
+            <span class="card-status">🛡️ Separate admin login</span>
+            <br><br>
+            <button class="action-btn" onclick="showSection('adminLoginSection')">
+                Admin Login
+            </button>
+        </div>
+
+    </section>
+
+    <!-- Student Login -->
+    <section class="section" id="loginSection">
+        <button class="back-btn" onclick="goHome()">← Back</button>
+
+        <div class="panel">
+            <button class="popup-close" type="button" aria-label="Close student login" onclick="goHome()">×</button>
+            <h2>👤 Student Login</h2>
+            <p class="muted">
+                Enter your registered Gmail address and 4-digit PIN.
+            </p>
+
+            <form id="studentLoginForm">
+                <input
+                    class="field"
+                    type="email"
+                    id="studentEmail"
+                    placeholder="Registered Gmail address"
+                    autocomplete="username"
+                    required
+                >
+
+                <input
+                    class="field"
+                    type="password"
+                    id="studentPin"
+                    placeholder="4-digit PIN"
+                    inputmode="numeric"
+                    pattern="[0-9]{4}"
+                    maxlength="4"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button class="primary" type="submit">Login</button>
+            </form>
+
+            <p id="studentLoginMessage" class="message" role="status"></p>
+            <p class="muted">Forgot your PIN? Gmail OTP recovery will be added in a later step.</p>
+        </div>
+    </section>
+
+    
+<section class="section" id="adminSection">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+    <div class="panel">
+        <h2>🛡️ Student Account Management</h2>
+
+        <p class="muted">
+            Create and manage student accounts. Each student will log in
+            using their registered email and 4-digit PIN.
+        </p>
+
+        <form id="addStudentForm">
+            <input
+                class="field"
+                type="text"
+                id="newStudentName"
+                placeholder="Student Full Name"
+                maxlength="100"
+                required
+            >
+
+            <input
+                class="field"
+                type="email"
+                id="newStudentEmail"
+                placeholder="Student Gmail Address"
+                required
+            >
+
+            <input
+                class="field"
+                type="password"
+                id="newStudentPin"
+                placeholder="Create 4-digit PIN"
+                inputmode="numeric"
+                pattern="[0-9]{4}"
+                maxlength="4"
+                required
+            >
+
+            <button class="primary" type="submit">➕ Add Student</button>
+        </form>
+
+        <p id="addStudentMessage" class="message" role="status"></p>
+    </div>
+
+    <div class="panel">
+        <h2>👥 Registered Students</h2>
+
+        <button class="primary" type="button" onclick="loadStudents()">
+            🔄 Refresh Student List
+        </button>
+
+        <div id="studentList" style="margin-top:20px;">
+            <p class="muted">Click Refresh Student List to load accounts.</p>
+        </div>
+
+        <p id="studentListMessage" class="message" role="status"></p>
+    </div>
+
+    <div class="panel">
+        <button class="primary" type="button" onclick="logoutAdmin()">
+            Admin Logout
+        </button>
+    </div>
+</section>
+
+
+
+    <!-- Photo Upload -->
+    <section class="section" id="uploadSection">
+        <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+        <div class="panel">
+            <h2>📸 Upload Your Photo</h2>
+            <p class="muted">Select a photo to upload to PhotoVault.</p>
+
+            <form id="photoUploadForm">
+                <input
+                    class="field"
+                    type="file"
+                    id="photoFile"
+                    accept="image/*"
+                    required
+                >
+
+                <button class="primary" type="submit">Upload Photo</button>
+            </form>
+
+            <p id="photoUploadMessage" class="message" role="status"></p>
+        </div>
+    </section>
+
+    <!-- Video Upload -->
+    <section class="section" id="videoSection">
+        <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+        <div class="panel">
+            <h2>🎬 Upload Your Video</h2>
+            <p class="muted">
+                Video upload interface is ready. Video upload support must be
+                configured in the server before this feature can work.
+            </p>
+
+            <input
+                class="field"
+                type="file"
+                id="videoFile"
+                accept="video/*"
+            >
+
+            <button class="primary" onclick="showMessage('videoMessage', 'Video upload backend abhi configure karna baaki hai.')">
+                Upload Video
+            </button>
+
+            <p id="videoMessage" class="message" role="status"></p>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section" id="gallerySection">
+        <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+        <div class="panel">
+            <h2>🖼️ Photo & Video Gallery</h2>
+            <p class="muted">
+                Your uploaded memories will appear here.
+            </p>
+
+            <div id="photoGallery" class="gallery-grid">
+                <p class="muted">Login to load your gallery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <p id="adminDashboardMessage" class="message" role="status"></p>
+    <!-- Admin Login Popup -->
+    <section class="section" id="adminLoginSection">
+        <button class="back-btn" type="button" onclick="goHome()">← Close</button>
+        <div class="panel">
+            <button class="popup-close" type="button" aria-label="Close admin login" onclick="goHome()">×</button>
+            <h2>🛡️ Admin Login</h2>
+            <p class="muted">Enter your admin username and password to manage student accounts.</p>
+            <form id="adminLoginForm">
+                <input class="field" type="text" id="adminUsername" placeholder="Admin username" autocomplete="username" required>
+                <input class="field" type="password" id="adminPassword" placeholder="Admin password" autocomplete="current-password" required>
+                <button class="primary" type="submit">Login as Admin</button>
+            </form>
+            <p id="adminLoginMessage" class="message" role="status"></p>
+        </div>
+    </section>
+
+    
+</main>
+
+<footer>
+    © 2026 PhotoVault | Made for memories with friends
+</footer>
+
+<script>
+let studentLoggedIn = false;
+let adminLoggedIn = false;
+
+const sectionIds = [
+    "loginSection",
+    "adminLoginSection",
+    "uploadSection",
+    "videoSection",
+    "gallerySection",
+    "adminSection"
+];
+
+function showSection(sectionId) {
+    const allSections = [
+        "loginSection",
+        "adminLoginSection",
+        "uploadSection",
+        "videoSection",
+        "gallerySection",
+        "adminSection"
+    ];
+
+    allSections.forEach(id => {
+        const section = document.getElementById(id);
+
+        if (section) {
+            section.style.display = "none";
+        }
+    });
+
+    const target = document.getElementById(sectionId);
+
+    if (target) {
+        target.style.display = "block";
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    } else {
+        console.error("Section not found:", sectionId);
+    }
+}
+
+
+function goHome() {
+    sectionIds.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) section.style.display = "none";
+    });
+
+    document.getElementById("homeSection").style.display = "block";
+    document.getElementById("featuresSection").style.display = "grid";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showMessage(elementId, message) {
+    document.getElementById(elementId).textContent = message;
+}
+
+function updateStudentUI(name) {
+    studentLoggedIn = true;
+
+    document.getElementById("headerLogin").classList.add("hidden");
+    document.getElementById("logoutButton").classList.remove("hidden");
+
+    const welcome = document.getElementById("welcomeText");
+    welcome.textContent = "Welcome, " + name + " ";
+    welcome.classList.remove("hidden");
+
+    ["photoStatus", "videoStatus", "galleryStatus"].forEach(id => {
+        document.getElementById(id).textContent = "✅ Login active";
+    });
+}
+
+function clearStudentUI() {
+    studentLoggedIn = false;
+
+    document.getElementById("headerLogin").classList.remove("hidden");
+    document.getElementById("logoutButton").classList.add("hidden");
+    document.getElementById("welcomeText").classList.add("hidden");
+
+    ["photoStatus", "videoStatus", "galleryStatus"].forEach(id => {
+        document.getElementById(id).textContent = "🔒 Login required";
+    });
+}
+
+
+async function openStudentFeature(sectionId) {
+    try {
+        const response = await fetch("/api/me");
+        const data = await response.json();
+
+        if (!response.ok || !data.loggedIn) {
+            clearStudentUI();
+            showSection("loginSection");
+            showMessage(
+                "studentLoginMessage",
+                "Please login first with your registered Gmail and PIN."
+            );
+            return;
+        }
+
+        updateStudentUI(data.student.name);
+
+        if (sectionId === "gallerySection") {
+            await loadGallery();
+        }
+
+        showSection(sectionId);
+
+    } catch (error) {
+        showSection("loginSection");
+        showMessage(
+            "studentLoginMessage",
+            "Unable to verify your login. Please try again."
+        );
+    }
+}
+
+
+function handleExplore() {
+    if (studentLoggedIn) {
+        showSection("gallerySection");
+        loadGallery();
+    } else {
+        showSection("loginSection");
+    }
+}
+
+document.getElementById("studentLoginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email = document.getElementById("studentEmail").value.trim();
+    const pin = document.getElementById("studentPin").value;
+
+    showMessage("studentLoginMessage", "Checking login...");
+
+    try {
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, pin })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Login failed.");
+        }
+
+        updateStudentUI(data.student.name);
+    showMessage("studentLoginMessage", "Login successful!");
+
+    goHome();
+    } catch (error) {
+        showMessage("studentLoginMessage", error.message);
+    }
+});
+
+document.getElementById("adminLoginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const username = document.getElementById("adminUsername").value.trim();
+    const password = document.getElementById("adminPassword").value;
+
+    showMessage("adminLoginMessage", "Verifying admin...");
+
+    try {
+        const response = await fetch("/api/admin/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Admin login failed.");
+        }
+
+        adminLoggedIn = true;
+        document.getElementById("adminPassword").value = "";
+
+       showMessage("addStudentMessage", "Admin verification successful.");
+        showSection("adminSection");
+    } catch (error) {
+        showMessage("adminLoginMessage", error.message);
+    }
+});
+
+async function logoutStudent() {
+    try {
+        const response = await fetch("/api/logout", {
+            method: "POST"
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.message || "Logout failed.");
+        }
+
+        clearStudentUI();
+        goHome();
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+async function logoutAdmin() {
+    try {
+        const response = await fetch("/api/admin/logout", {
+            method: "POST"
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.message || "Admin logout failed.");
+        }
+
+        adminLoggedIn = false;
+        goHome();
+        alert("Admin logged out.");
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+document.getElementById("photoUploadForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    if (!studentLoggedIn) {
+        showMessage("photoUploadMessage", "Please login first.");
+        return;
+    }
+
+    const file = document.getElementById("photoFile").files[0];
+
+    if (!file) {
+        showMessage("photoUploadMessage", "Please select a photo.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("photo", file);
+
+    showMessage("photoUploadMessage", "Uploading photo...");
+
+    try {
+        const response = await fetch("/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const message = await response.text();
+
+        if (!response.ok) {
+            throw new Error(message || "Photo upload failed.");
+        }
+
+        showMessage("photoUploadMessage", message);
+        document.getElementById("photoUploadForm").reset();
+    } catch (error) {
+        showMessage("photoUploadMessage", error.message);
+    }
+});
+
+async function loadGallery() {
+    const gallery = document.getElementById("photoGallery");
+
+    if (!studentLoggedIn) {
+        gallery.textContent = "Please log in to view the gallery.";
+        return;
+    }
+
+    gallery.textContent = "Loading gallery...";
+
+    try {
+        const response = await fetch("/gallery");
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Gallery could not be loaded.");
+        }
+
+        gallery.innerHTML = "";
+
+        if (!data.photos || data.photos.length === 0) {
+            gallery.textContent = "No photos uploaded yet.";
+            return;
+        }
+
+        data.photos.forEach(photo => {
+            const card = document.createElement("div");
+            card.className = "gallery-card";
+
+            const image = document.createElement("img");
+            image.src = "/api/photos/" + encodeURIComponent(photo);
+            image.alt = "PhotoVault memory";
+
+            const download = document.createElement("a");
+            download.href = image.src;
+            download.download = photo;
+            download.className = "download-link";
+            download.textContent = "⬇ Download Photo";
+
+            card.appendChild(image);
+            card.appendChild(download);
+            gallery.appendChild(card);
+        });
+    } catch (error) {
+        gallery.textContent = error.message;
+    }
+}
+
+async function checkExistingLogin() {
+    try {
+        const response = await fetch("/api/me");
+        const data = await response.json();
+
+        if (data.loggedIn) {
+            updateStudentUI(data.student.name);
+        } else {
+            clearStudentUI();
+        }
+    } catch (error) {
+        clearStudentUI();
+    }
+}
+
+document.getElementById("addStudentForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("newStudentName").value.trim();
+    const email = document.getElementById("newStudentEmail").value.trim();
+    const pin = document.getElementById("newStudentPin").value;
+
+    showMessage("addStudentMessage", "Creating student account...");
+
+    try {
+        const response = await fetch("/api/admin/students", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, email, pin })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Unable to create account.");
+        }
+
+        showMessage("addStudentMessage", data.message);
+
+        document.getElementById("addStudentForm").reset();
+
+        await loadStudents();
+
+    } catch (error) {
+        showMessage("addStudentMessage", error.message);
+    }
+});
+
+
+async function loadStudents() {
+    const list = document.getElementById("studentList");
+
+    list.textContent = "Loading students...";
+
+    try {
+        const response = await fetch("/api/admin/students");
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Unable to load students.");
+        }
+
+        list.innerHTML = "";
+
+        if (data.students.length === 0) {
+            list.textContent = "No student accounts created yet.";
+            return;
+        }
+
+        data.students.forEach(student => {
+            const card = document.createElement("div");
+
+            card.style.cssText = `
+                background:#0b1020;
+                border:1px solid #29334d;
+                border-radius:12px;
+                padding:16px;
+                margin-bottom:12px;
+            `;
+
+            const details = document.createElement("p");
+
+            details.style.cssText = `
+                color:#b8c0d4;
+                line-height:1.8;
+                overflow-wrap:anywhere;
+            `;
+
+            details.textContent =
+                student.name + " | " +
+                student.email + " | Status: " +
+                student.status;
+
+            const statusButton = document.createElement("button");
+
+            statusButton.className = "action-btn";
+            statusButton.style.margin = "10px 8px 0 0";
+            statusButton.textContent =
+                student.status === "active"
+                    ? "Deactivate"
+                    : "Activate";
+
+            statusButton.addEventListener("click", async () => {
+                await changeStudentStatus(
+                    student.id,
+                    student.status === "active" ? "inactive" : "active"
+                );
+            });
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.className = "action-btn";
+            deleteButton.style.marginTop = "10px";
+            deleteButton.style.background = "#dc2626";
+            deleteButton.textContent = "Delete";
+
+            deleteButton.addEventListener("click", async () => {
+                const confirmed = confirm(
+                    "Are you sure you want to delete this student account?"
+                );
+
+                if (!confirmed) return;
+
+                await deleteStudent(student.id);
+            });
+
+            card.appendChild(details);
+            card.appendChild(statusButton);
+            card.appendChild(deleteButton);
+
+            list.appendChild(card);
+        });
+
+    } catch (error) {
+        list.textContent = error.message;
+    }
+}
+
+
+async function changeStudentStatus(id, status) {
+    try {
+        const response = await fetch(
+            "/api/admin/students/" + id + "/status",
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ status })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Unable to update account.");
+        }
+
+        showMessage("studentListMessage", data.message);
+
+        await loadStudents();
+
+    } catch (error) {
+        showMessage("studentListMessage", error.message);
+    }
+}
+
+
+async function deleteStudent(id) {
+    try {
+        const response = await fetch("/api/admin/students/" + id, {
+            method: "DELETE"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Unable to delete account.");
+        }
+
+        showMessage("studentListMessage", data.message);
+
+        await loadStudents();
+
+    } catch (error) {
+        showMessage("studentListMessage", error.message);
+    }
+}
+
+
+// Close login popups when the dark background is clicked or Escape is pressed.
+["loginSection", "adminLoginSection"].forEach(id => {
+    const overlay = document.getElementById(id);
+    if (overlay) {
+        overlay.addEventListener("click", event => {
+            if (event.target === overlay) goHome();
+        });
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        const studentPopup = document.getElementById("loginSection");
+        const adminPopup = document.getElementById("adminLoginSection");
+        if ((studentPopup && studentPopup.style.display !== "none") ||
+            (adminPopup && adminPopup.style.display !== "none")) {
+            goHome();
+        }
+    }
+});
+
+
+checkExistingLogin();
+</script>
+
+</body>
+</html>
